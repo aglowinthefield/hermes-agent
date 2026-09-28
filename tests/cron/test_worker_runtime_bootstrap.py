@@ -166,7 +166,7 @@ def _launch_probe(profile, monkeypatch, inspect_running):
 
     with _profile_cron_scope(profile), monkeypatch.context() as patch:
         job = create_job(prompt=None, schedule="every 1h", script="probe.py",
-                         no_agent=True, deliver="local", interpreter=sys.executable)
+                         no_agent=True, deliver="local")
         job["execution_id"] = executions.create_execution(job["id"], source="direct")["id"]
         patch.setattr(scheduler.subprocess, "Popen", spawn)
         patch.setattr(scheduler, "_wait_for_external_cron_worker", wait)
